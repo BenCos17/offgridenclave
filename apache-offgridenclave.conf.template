@@ -15,6 +15,6 @@
     ProxyPass        / http://127.0.0.1:__PORT__/ retry=0
     ProxyPassReverse / http://127.0.0.1:__PORT__/ retry=0
 
-    ErrorLog ${APACHE_LOG_DIR}/offgridneclave-error.log
-    CustomLog ${APACHE_LOG_DIR}/offgridneclave-access.log combined
+    ErrorLog ${APACHE_LOG_DIR}/offgridenclave-error.log
+    CustomLog ${APACHE_LOG_DIR}/offgridenclave-access.log combined
 </VirtualHost>

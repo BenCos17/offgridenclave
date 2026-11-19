@@ -25,6 +25,24 @@ PORT=3000 npm start
 
 Open `http://localhost:3000`.
 
+## Update the server
+
+```bash
+cd ~/offgridenclave
+git pull --ff-only
+sudo ./install.sh
+```
+
+Do not modify tracked project files on the server. If you have accidentally edited one or need to discard server-side changes before updating:
+
+```bash
+git reset --hard HEAD
+git clean -fd
+git pull --ff-only
+```
+
+`git reset --hard` permanently discards local tracked changes. `git clean -fd` removes untracked files.
+
 ## Apache reverse proxy
 
 The installer enables `proxy`, `proxy_http`, `proxy_wstunnel`, `rewrite`, and writes a virtual host from `apache-offgridenclave.conf.template`.
