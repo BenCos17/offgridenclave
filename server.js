@@ -30,47 +30,8 @@ const world = {
   zone: { x: 500, y: 500, radius: 430, targetRadius: 430 },
   resources: [],
   weather: 'Clear',
-  aiEvent: null,
-  structures: [
-    { id: 'hydroponics', name: 'HYDROPONICS', x: 70, y: 70, w: 190, h: 170, floor: '#354238' },
-    { id: 'cafeteria', name: 'CAFETERIA', x: 270, y: 70, w: 190, h: 170, floor: '#443f32' },
-    { id: 'command', name: 'COMMAND DECK', x: 470, y: 70, w: 190, h: 170, floor: '#323c40' },
-    { id: 'bunker', name: 'ARMORY BUNKER', x: 670, y: 70, w: 260, h: 170, floor: '#403e32' },
-    { id: 'living_a', name: 'NORTH QUARTERS A', x: 70, y: 250, w: 190, h: 160, floor: '#3a3d32' },
-    { id: 'living_b', name: 'NORTH QUARTERS B', x: 270, y: 250, w: 190, h: 160, floor: '#3a3d32' },
-    { id: 'laboratory', name: 'RESEARCH LAB', x: 470, y: 250, w: 190, h: 160, floor: '#34423f' },
-    { id: 'server', name: 'SERVER ROOM', x: 670, y: 250, w: 260, h: 160, floor: '#30383b' },
-    { id: 'atrium', name: 'CENTRAL ATRIUM', x: 270, y: 420, w: 390, h: 160, floor: '#384037' },
-    { id: 'west_hall', name: 'WEST CORRIDOR', x: 70, y: 420, w: 190, h: 160, floor: '#30372f' },
-    { id: 'east_hall', name: 'EAST CORRIDOR', x: 670, y: 420, w: 260, h: 160, floor: '#30372f' },
-    { id: 'generator', name: 'POWER GENERATOR', x: 70, y: 590, w: 190, h: 160, floor: '#3b3d35' },
-    { id: 'workshop', name: 'ENGINEERING', x: 270, y: 590, w: 190, h: 160, floor: '#413f33' },
-    { id: 'medical', name: 'MEDICAL WARD', x: 470, y: 590, w: 190, h: 160, floor: '#35423d' },
-    { id: 'storage', name: 'STORAGE VAULT', x: 670, y: 590, w: 260, h: 160, floor: '#3d3b32' },
-    { id: 'south_hall', name: 'SOUTH CORRIDOR', x: 270, y: 760, w: 390, h: 170, floor: '#30372f' },
-    { id: 'courtwest', name: 'WEST COURTYARD', x: 70, y: 760, w: 190, h: 170, floor: '#2f352b' },
-    { id: 'courteast', name: 'EAST COURTYARD', x: 670, y: 760, w: 260, h: 170, floor: '#2f352b' }
-  ],
-  walls: [
-    { x: 260, y: 70, w: 10, h: 170 }, { x: 460, y: 70, w: 10, h: 170 }, { x: 660, y: 70, w: 10, h: 170 },
-    { x: 260, y: 250, w: 10, h: 160 }, { x: 460, y: 250, w: 10, h: 160 }, { x: 660, y: 250, w: 10, h: 160 },
-    { x: 260, y: 420, w: 10, h: 160 }, { x: 660, y: 420, w: 10, h: 160 },
-    { x: 260, y: 590, w: 10, h: 160 }, { x: 460, y: 590, w: 10, h: 160 }, { x: 660, y: 590, w: 10, h: 160 },
-    { x: 260, y: 760, w: 10, h: 170 }, { x: 660, y: 760, w: 10, h: 170 },
-    { x: 70, y: 240, w: 860, h: 10 }, { x: 70, y: 410, w: 860, h: 10 },
-    { x: 70, y: 580, w: 860, h: 10 }, { x: 70, y: 750, w: 860, h: 10 },
-    { x: 70, y: 70, w: 860, h: 10 }, { x: 70, y: 930, w: 860, h: 10 }
-  ]
+  aiEvent: null
 };
-
-function overlapsWall(x, y, radius = 16) {
-  return world.walls.some(w => x + radius > w.x && x - radius < w.x + w.w && y + radius > w.y && y - radius < w.y + w.h);
-}
-
-function roomAt(x, y) {
-  const room = world.structures.find(r => x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h);
-  return room ? room.name : 'OUTER COURTYARD';
-}
 
 for (let i = 0; i < 55; i++) {
   world.resources.push({ id: `r${i}`, x: 90 + Math.random() * 820, y: 90 + Math.random() * 820, kind: ['scrap', 'medkit', 'water'][i % 3], taken: false });
@@ -82,9 +43,7 @@ function publicWorld() {
     resources: world.resources.filter(r => !r.taken),
     weather: world.weather,
     aiEvent: world.aiEvent,
-    players: [...players.values()].map(p => ({ id: p.id, name: p.name, x: p.x, y: p.y, health: p.health, kills: p.kills, score: p.score, ai: p.ai, room: roomAt(p.x, p.y) })),
-    structures: world.structures,
-    walls: world.walls
+    players: [...players.values()].map(p => ({ id: p.id, name: p.name, x: p.x, y: p.y, health: p.health, kills: p.kills, score: p.score, ai: p.ai }))
   };
 }
 
@@ -131,8 +90,8 @@ io.on('connection', socket => {
     const speed = move.sprint && player.energy > 0 ? 7 : 4.2;
     const nextX = Math.max(20, Math.min(980, player.x + dx * speed));
     const nextY = Math.max(20, Math.min(980, player.y + dy * speed));
-    if (!overlapsWall(nextX, player.y, 16)) player.x = nextX;
-    if (!overlapsWall(player.x, nextY, 16)) player.y = nextY;
+    player.x = nextX;
+    player.y = nextY;
     if (move.sprint) player.energy = Math.max(0, player.energy - 0.8);
     else player.energy = Math.min(100, player.energy + 0.35);
   });
