@@ -52,33 +52,14 @@ const world = {
     { id: 'courteast', name: 'EAST COURTYARD', x: 670, y: 760, w: 260, h: 170, floor: '#2f352b' }
   ],
   walls: [
-    { x: 70, y: 70, w: 400, h: 10 }, { x: 530, y: 70, w: 400, h: 10 },
-    { x: 260, y: 70, w: 10, h: 65 }, { x: 260, y: 195, w: 10, h: 45 },
-    { x: 460, y: 70, w: 10, h: 65 }, { x: 460, y: 195, w: 10, h: 45 },
-    { x: 660, y: 70, w: 10, h: 65 }, { x: 660, y: 195, w: 10, h: 45 },
-
-    { x: 70, y: 240, w: 150, h: 10 }, { x: 280, y: 240, w: 140, h: 10 },
-    { x: 480, y: 240, w: 140, h: 10 }, { x: 680, y: 240, w: 250, h: 10 },
-    { x: 260, y: 250, w: 10, h: 120 }, { x: 460, y: 250, w: 10, h: 120 },
-    { x: 660, y: 250, w: 10, h: 120 },
-
-    { x: 70, y: 410, w: 150, h: 10 }, { x: 280, y: 410, w: 140, h: 10 },
-    { x: 480, y: 410, w: 140, h: 10 }, { x: 680, y: 410, w: 250, h: 10 },
-    { x: 260, y: 420, w: 10, h: 120 }, { x: 460, y: 420, w: 10, h: 120 },
-    { x: 660, y: 420, w: 10, h: 120 },
-
-    { x: 70, y: 580, w: 150, h: 10 }, { x: 280, y: 580, w: 140, h: 10 },
-    { x: 480, y: 580, w: 140, h: 10 }, { x: 680, y: 580, w: 250, h: 10 },
-    { x: 260, y: 590, w: 10, h: 120 }, { x: 460, y: 590, w: 10, h: 120 },
-    { x: 660, y: 590, w: 10, h: 120 },
-
-    { x: 70, y: 750, w: 150, h: 10 }, { x: 280, y: 750, w: 140, h: 10 },
-    { x: 480, y: 750, w: 140, h: 10 }, { x: 680, y: 750, w: 250, h: 10 },
+    { x: 260, y: 70, w: 10, h: 170 }, { x: 460, y: 70, w: 10, h: 170 }, { x: 660, y: 70, w: 10, h: 170 },
+    { x: 260, y: 250, w: 10, h: 160 }, { x: 460, y: 250, w: 10, h: 160 }, { x: 660, y: 250, w: 10, h: 160 },
+    { x: 260, y: 420, w: 10, h: 160 }, { x: 660, y: 420, w: 10, h: 160 },
+    { x: 260, y: 590, w: 10, h: 160 }, { x: 460, y: 590, w: 10, h: 160 }, { x: 660, y: 590, w: 10, h: 160 },
     { x: 260, y: 760, w: 10, h: 170 }, { x: 660, y: 760, w: 10, h: 170 },
-
-    { x: 70, y: 70, w: 10, h: 400 }, { x: 70, y: 530, w: 10, h: 400 },
-    { x: 930, y: 70, w: 10, h: 400 }, { x: 930, y: 530, w: 10, h: 400 },
-    { x: 70, y: 930, w: 400, h: 10 }, { x: 530, y: 930, w: 400, h: 10 }
+    { x: 70, y: 240, w: 860, h: 10 }, { x: 70, y: 410, w: 860, h: 10 },
+    { x: 70, y: 580, w: 860, h: 10 }, { x: 70, y: 750, w: 860, h: 10 },
+    { x: 70, y: 70, w: 860, h: 10 }, { x: 70, y: 930, w: 860, h: 10 }
   ]
 };
 
@@ -124,7 +105,7 @@ io.on('connection', socket => {
   const player = {
     id: socket.id,
     name: `Drifter-${socket.id.slice(-4).toUpperCase()}`,
-    x: 465,
+    x: 500,
     y: 500,
     health: 100,
     kills: 0,
@@ -147,12 +128,9 @@ io.on('connection', socket => {
     if (!player.alive) return;
     const dx = Number(move.dx) || 0;
     const dy = Number(move.dy) || 0;
-    const length = Math.hypot(dx, dy);
-    const unitX = length ? dx / length : 0;
-    const unitY = length ? dy / length : 0;
-    const speed = move.sprint && player.energy > 0 ? 8 : 5.2;
-    const nextX = Math.max(20, Math.min(980, player.x + unitX * speed));
-    const nextY = Math.max(20, Math.min(980, player.y + unitY * speed));
+    const speed = move.sprint && player.energy > 0 ? 7 : 4.2;
+    const nextX = Math.max(20, Math.min(980, player.x + dx * speed));
+    const nextY = Math.max(20, Math.min(980, player.y + dy * speed));
     if (!overlapsWall(nextX, player.y, 16)) player.x = nextX;
     if (!overlapsWall(player.x, nextY, 16)) player.y = nextY;
     if (move.sprint) player.energy = Math.max(0, player.energy - 0.8);

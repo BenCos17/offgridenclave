@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <canvas id="game" width="640" height="360"></canvas>
+  <canvas id="game" width="1000" height="1000"></canvas>
   <div id="hud">
     <header><div><small>OFFGRID</small><strong>ENCLAVE</strong></div><div id="status">SIGNAL LOST</div></header>
     <div class="bars"><div><label>VITALS</label><span><i id="health"></i></span></div><div><label>ENERGY</label><span><i id="energy"></i></span></div></div>
@@ -14,7 +14,7 @@
   <aside id="leaderboard"><h2>EXTRACTION BOARD</h2><ol id="scores"></ol></aside>
   <div id="eventLog"></div>
   <div id="join"><div class="panel"><p>RELIC NETWORK // SURVIVAL CHANNEL</p><h1>ENTER THE ENCLAVE</h1><input id="name" maxlength="16" placeholder="CALLSIGN"><button id="enter">CONNECT</button></div></div>
-  <div id="controls"><b>WASD</b> MOVE &nbsp; <b>MOUSE</b> LOOK &nbsp; <b>SHIFT</b> SPRINT &nbsp; <b>E</b> COLLECT &nbsp; <b>F</b> STRIKE</div>
+  <div id="controls"><b>WASD</b> MOVE &nbsp; <b>SHIFT</b> SPRINT &nbsp; <b>E</b> COLLECT &nbsp; <b>F</b> STRIKE</div>
   <script src="/socket.io/socket.io.js"></script><script src="game.js"></script>
 </body>
 </html>
