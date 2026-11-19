@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>OFFGRID NECLAVE</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="game" width="1000" height="1000"></canvas>
+  <div id="hud">
+    <header><div><small>OFFGRID</small><strong>NECLAVE</strong></div><div id="status">SIGNAL LOST</div></header>
+    <div class="bars"><div><label>VITALS</label><span><i id="health"></i></span></div><div><label>ENERGY</label><span><i id="energy"></i></span></div></div>
+  </div>
+  <aside id="leaderboard"><h2>EXTRACTION BOARD</h2><ol id="scores"></ol></aside>
+  <div id="eventLog"></div>
+  <div id="join"><div class="panel"><p>RELIC NETWORK // SURVIVAL CHANNEL</p><h1>ENTER THE NECLAVE</h1><input id="name" maxlength="16" placeholder="CALLSIGN"><button id="enter">CONNECT</button></div></div>
+  <div id="controls"><b>WASD</b> MOVE &nbsp; <b>SHIFT</b> SPRINT &nbsp; <b>E</b> COLLECT &nbsp; <b>F</b> STRIKE</div>
+  <script src="/socket.io/socket.io.js"></script><script src="game.js"></script>
+</body>
+</html>

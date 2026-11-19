@@ -1,0 +1,20 @@
+<VirtualHost *:80>
+    ServerName __DOMAIN__
+
+    ProxyPreserveHost On
+    ProxyRequests Off
+
+    ProxyPass        /socket.io/ http://127.0.0.1:__PORT__/socket.io/
+    ProxyPassReverse /socket.io/ http://127.0.0.1:__PORT__/socket.io/
+
+    RewriteEngine On
+    RewriteCond %{HTTP:Upgrade} websocket [NC]
+    RewriteCond %{HTTP:Connection} upgrade [NC]
+    RewriteRule ^/?(.*) "ws://127.0.0.1:__PORT__/$1" [P,L]
+
+    ProxyPass        / http://127.0.0.1:__PORT__/ retry=0
+    ProxyPassReverse / http://127.0.0.1:__PORT__/ retry=0
+
+    ErrorLog ${APACHE_LOG_DIR}/offgridneclave-error.log
+    CustomLog ${APACHE_LOG_DIR}/offgridneclave-access.log combined
+</VirtualHost>
