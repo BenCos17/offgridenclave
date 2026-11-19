@@ -29,8 +29,39 @@ const world = {
   zone: { x: 500, y: 500, radius: 430, targetRadius: 430 },
   resources: [],
   weather: 'Clear',
-  aiEvent: null
+  aiEvent: null,
+  structures: [
+    { id: 'atrium', name: 'CENTRAL ATRIUM', x: 390, y: 390, w: 220, h: 220, floor: '#384037' },
+    { id: 'hydroponics', name: 'HYDROPONICS', x: 90, y: 110, w: 240, h: 190, floor: '#354238' },
+    { id: 'bunker', name: 'ARMORY BUNKER', x: 670, y: 110, w: 240, h: 190, floor: '#403e32' },
+    { id: 'generator', name: 'POWER GENERATOR', x: 90, y: 700, w: 240, h: 190, floor: '#3b3d35' },
+    { id: 'medical', name: 'MEDICAL WARD', x: 670, y: 700, w: 240, h: 190, floor: '#35423d' },
+    { id: 'north_hall', name: 'NORTH CORRIDOR', x: 330, y: 110, w: 340, h: 190, floor: '#30372f' },
+    { id: 'west_hall', name: 'WEST CORRIDOR', x: 90, y: 300, w: 300, h: 400, floor: '#30372f' },
+    { id: 'east_hall', name: 'EAST CORRIDOR', x: 610, y: 300, w: 300, h: 400, floor: '#30372f' },
+    { id: 'south_hall', name: 'SOUTH CORRIDOR', x: 330, y: 700, w: 340, h: 190, floor: '#30372f' }
+  ],
+  walls: [
+    { x: 330, y: 300, w: 340, h: 18 }, { x: 330, y: 682, w: 340, h: 18 },
+    { x: 330, y: 318, w: 18, h: 364 }, { x: 652, y: 318, w: 18, h: 364 },
+    { x: 390, y: 390, w: 220, h: 12 }, { x: 390, y: 598, w: 220, h: 12 },
+    { x: 390, y: 402, w: 12, h: 196 }, { x: 598, y: 402, w: 12, h: 196 },
+    { x: 330, y: 110, w: 340, h: 12 }, { x: 330, y: 288, w: 118, h: 12 },
+    { x: 552, y: 288, w: 118, h: 12 }, { x: 90, y: 300, w: 12, h: 400 },
+    { x: 898, y: 300, w: 12, h: 400 }, { x: 330, y: 700, w: 118, h: 12 },
+    { x: 552, y: 700, w: 118, h: 12 }, { x: 90, y: 878, w: 240, h: 12 },
+    { x: 670, y: 878, w: 240, h: 12 }
+  ]
 };
+
+function overlapsWall(x, y, radius = 16) {
+  return world.walls.some(w => x + radius > w.x && x - radius < w.x + w.w && y + radius > w.y && y - radius < w.y + w.h);
+}
+
+function roomAt(x, y) {
+  const room = world.structures.find(r => x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h);
+  return room ? room.name : 'OUTER COURTYARD';
+}
 
 for (let i = 0; i < 55; i++) {
   world.resources.push({ id: `r${i}`, x: 90 + Math.random() * 820, y: 90 + Math.random() * 820, kind: ['scrap', 'medkit', 'water'][i % 3], taken: false });
@@ -42,7 +73,9 @@ function publicWorld() {
     resources: world.resources.filter(r => !r.taken),
     weather: world.weather,
     aiEvent: world.aiEvent,
-    players: [...players.values()].map(p => ({ id: p.id, name: p.name, x: p.x, y: p.y, health: p.health, kills: p.kills, score: p.score, ai: p.ai }))
+    players: [...players.values()].map(p => ({ id: p.id, name: p.name, x: p.x, y: p.y, health: p.health, kills: p.kills, score: p.score, ai: p.ai })),
+    structures: world.structures,
+    walls: world.walls
   };
 }
 
