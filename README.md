@@ -27,18 +27,21 @@ Open `http://localhost:3000`.
 
 ## Update the server
 
+Use the installer updater to pull the latest Git commit, reinstall dependencies, and restart the game:
+
 ```bash
 cd ~/offgridenclave
-git pull --ff-only
-sudo ./install.sh
+sudo ./install.sh --update
 ```
 
-Do not modify tracked project files on the server. If you have accidentally edited one or need to discard server-side changes before updating:
+You can also run `sudo ./install.sh` and choose **Y** when prompted to update an existing installation.
+
+If the update refuses because server files were changed locally, commit or discard those changes first:
 
 ```bash
 git reset --hard HEAD
 git clean -fd
-git pull --ff-only
+sudo ./install.sh --update
 ```
 
 `git reset --hard` permanently discards local tracked changes. `git clean -fd` removes untracked files.
