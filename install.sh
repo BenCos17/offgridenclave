@@ -21,12 +21,28 @@ while true; do
   fi
 done
 
-if ! command -v node >/dev/null; then
-  echo "Node.js is missing. Install Node.js 18+ before continuing."
-  exit 1
+apt-get update
+apt-get install -y curl ca-certificates
+
+install_node() {
+  echo "Installing Node.js 22..."
+  curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+  apt-get install -y nodejs
+}
+
+if command -v node >/dev/null 2>&1; then
+  NODE_MAJOR=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0)
+  if (( NODE_MAJOR < 18)); then
+    echo "Node.js $NODE_MAJOR is installed, but Node.js 18+ is required."
+    install_node
+  fi
+else
+  echo "Node.js is missing. Installing Node.js 18+..."
+  install_node
 fi
 
-apt-get update
+node -e "const major=Number(process.versions.node.split('.')[0]); if (major < 18) { console.error('Node.js 18+ is required.'); process.exit(1); }"
+
 apt-get install -y apache2
 npm install
 
