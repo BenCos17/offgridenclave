@@ -31,26 +31,34 @@ const world = {
   weather: 'Clear',
   aiEvent: null,
   structures: [
-    { id: 'atrium', name: 'CENTRAL ATRIUM', x: 390, y: 390, w: 220, h: 220, floor: '#384037' },
-    { id: 'hydroponics', name: 'HYDROPONICS', x: 90, y: 110, w: 240, h: 190, floor: '#354238' },
-    { id: 'bunker', name: 'ARMORY BUNKER', x: 670, y: 110, w: 240, h: 190, floor: '#403e32' },
-    { id: 'generator', name: 'POWER GENERATOR', x: 90, y: 700, w: 240, h: 190, floor: '#3b3d35' },
-    { id: 'medical', name: 'MEDICAL WARD', x: 670, y: 700, w: 240, h: 190, floor: '#35423d' },
-    { id: 'north_hall', name: 'NORTH CORRIDOR', x: 330, y: 110, w: 340, h: 190, floor: '#30372f' },
-    { id: 'west_hall', name: 'WEST CORRIDOR', x: 90, y: 300, w: 300, h: 400, floor: '#30372f' },
-    { id: 'east_hall', name: 'EAST CORRIDOR', x: 610, y: 300, w: 300, h: 400, floor: '#30372f' },
-    { id: 'south_hall', name: 'SOUTH CORRIDOR', x: 330, y: 700, w: 340, h: 190, floor: '#30372f' }
+    { id: 'hydroponics', name: 'HYDROPONICS', x: 70, y: 70, w: 190, h: 170, floor: '#354238' },
+    { id: 'cafeteria', name: 'CAFETERIA', x: 270, y: 70, w: 190, h: 170, floor: '#443f32' },
+    { id: 'command', name: 'COMMAND DECK', x: 470, y: 70, w: 190, h: 170, floor: '#323c40' },
+    { id: 'bunker', name: 'ARMORY BUNKER', x: 670, y: 70, w: 260, h: 170, floor: '#403e32' },
+    { id: 'living_a', name: 'NORTH QUARTERS A', x: 70, y: 250, w: 190, h: 160, floor: '#3a3d32' },
+    { id: 'living_b', name: 'NORTH QUARTERS B', x: 270, y: 250, w: 190, h: 160, floor: '#3a3d32' },
+    { id: 'laboratory', name: 'RESEARCH LAB', x: 470, y: 250, w: 190, h: 160, floor: '#34423f' },
+    { id: 'server', name: 'SERVER ROOM', x: 670, y: 250, w: 260, h: 160, floor: '#30383b' },
+    { id: 'atrium', name: 'CENTRAL ATRIUM', x: 270, y: 420, w: 390, h: 160, floor: '#384037' },
+    { id: 'west_hall', name: 'WEST CORRIDOR', x: 70, y: 420, w: 190, h: 160, floor: '#30372f' },
+    { id: 'east_hall', name: 'EAST CORRIDOR', x: 670, y: 420, w: 260, h: 160, floor: '#30372f' },
+    { id: 'generator', name: 'POWER GENERATOR', x: 70, y: 590, w: 190, h: 160, floor: '#3b3d35' },
+    { id: 'workshop', name: 'ENGINEERING', x: 270, y: 590, w: 190, h: 160, floor: '#413f33' },
+    { id: 'medical', name: 'MEDICAL WARD', x: 470, y: 590, w: 190, h: 160, floor: '#35423d' },
+    { id: 'storage', name: 'STORAGE VAULT', x: 670, y: 590, w: 260, h: 160, floor: '#3d3b32' },
+    { id: 'south_hall', name: 'SOUTH CORRIDOR', x: 270, y: 760, w: 390, h: 170, floor: '#30372f' },
+    { id: 'courtwest', name: 'WEST COURTYARD', x: 70, y: 760, w: 190, h: 170, floor: '#2f352b' },
+    { id: 'courteast', name: 'EAST COURTYARD', x: 670, y: 760, w: 260, h: 170, floor: '#2f352b' }
   ],
   walls: [
-    { x: 330, y: 300, w: 340, h: 18 }, { x: 330, y: 682, w: 340, h: 18 },
-    { x: 330, y: 318, w: 18, h: 364 }, { x: 652, y: 318, w: 18, h: 364 },
-    { x: 390, y: 390, w: 220, h: 12 }, { x: 390, y: 598, w: 220, h: 12 },
-    { x: 390, y: 402, w: 12, h: 196 }, { x: 598, y: 402, w: 12, h: 196 },
-    { x: 330, y: 110, w: 340, h: 12 }, { x: 330, y: 288, w: 118, h: 12 },
-    { x: 552, y: 288, w: 118, h: 12 }, { x: 90, y: 300, w: 12, h: 400 },
-    { x: 898, y: 300, w: 12, h: 400 }, { x: 330, y: 700, w: 118, h: 12 },
-    { x: 552, y: 700, w: 118, h: 12 }, { x: 90, y: 878, w: 240, h: 12 },
-    { x: 670, y: 878, w: 240, h: 12 }
+    { x: 260, y: 70, w: 10, h: 170 }, { x: 460, y: 70, w: 10, h: 170 }, { x: 660, y: 70, w: 10, h: 170 },
+    { x: 260, y: 250, w: 10, h: 160 }, { x: 460, y: 250, w: 10, h: 160 }, { x: 660, y: 250, w: 10, h: 160 },
+    { x: 260, y: 420, w: 10, h: 160 }, { x: 660, y: 420, w: 10, h: 160 },
+    { x: 260, y: 590, w: 10, h: 160 }, { x: 460, y: 590, w: 10, h: 160 }, { x: 660, y: 590, w: 10, h: 160 },
+    { x: 260, y: 760, w: 10, h: 170 }, { x: 660, y: 760, w: 10, h: 170 },
+    { x: 70, y: 240, w: 860, h: 10 }, { x: 70, y: 410, w: 860, h: 10 },
+    { x: 70, y: 580, w: 860, h: 10 }, { x: 70, y: 750, w: 860, h: 10 },
+    { x: 70, y: 70, w: 860, h: 10 }, { x: 70, y: 930, w: 860, h: 10 }
   ]
 };
 
@@ -73,7 +81,7 @@ function publicWorld() {
     resources: world.resources.filter(r => !r.taken),
     weather: world.weather,
     aiEvent: world.aiEvent,
-    players: [...players.values()].map(p => ({ id: p.id, name: p.name, x: p.x, y: p.y, health: p.health, kills: p.kills, score: p.score, ai: p.ai })),
+    players: [...players.values()].map(p => ({ id: p.id, name: p.name, x: p.x, y: p.y, health: p.health, kills: p.kills, score: p.score, ai: p.ai, room: roomAt(p.x, p.y) })),
     structures: world.structures,
     walls: world.walls
   };
@@ -120,8 +128,10 @@ io.on('connection', socket => {
     const dx = Number(move.dx) || 0;
     const dy = Number(move.dy) || 0;
     const speed = move.sprint && player.energy > 0 ? 7 : 4.2;
-    player.x = Math.max(20, Math.min(980, player.x + dx * speed));
-    player.y = Math.max(20, Math.min(980, player.y + dy * speed));
+    const nextX = Math.max(20, Math.min(980, player.x + dx * speed));
+    const nextY = Math.max(20, Math.min(980, player.y + dy * speed));
+    if (!overlapsWall(nextX, player.y, 16)) player.x = nextX;
+    if (!overlapsWall(player.x, nextY, 16)) player.y = nextY;
     if (move.sprint) player.energy = Math.max(0, player.energy - 0.8);
     else player.energy = Math.min(100, player.energy + 0.35);
   });
