@@ -179,5 +179,5 @@ app.get('/api/leaderboard', (req, res) => res.json(loadScores()));
 app.get('/health', (req, res) => res.json({ ok: true, players: players.size, uptime: process.uptime() }));
 
 server.listen(PORT, HOST, () => {
-  console.log(`OFFGRID NECLAVE listening on http://${HOST}:${PORT}`);
+  console.log(`OFFGRIDENCLAVE listening on http://${HOST}:${PORT}`);
 });

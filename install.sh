@@ -6,8 +6,8 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-read -rp "Server domain or hostname [neclave.local]: " DOMAIN
-DOMAIN=${DOMAIN:-neclave.local}
+read -rp "Server domain or hostname [offgridenclave.local]: " DOMAIN
+DOMAIN=${DOMAIN:-offgridenclave.local}
 
 while true; do
   read -rp "Application port [3000]: " PORT
@@ -46,17 +46,17 @@ node -e "const major=Number(process.versions.node.split('.')[0]); if (major < 18
 apt-get install -y apache2
 npm install
 
-sed "s/__DOMAIN__/$DOMAIN/g; s/__PORT__/$PORT/g" apache-offgridneclave.conf.template > "/etc/apache2/sites-available/offgridneclave.conf"
+sed "s/__DOMAIN__/$DOMAIN/g; s/__PORT__/$PORT/g" apache-offgridenclave.conf.template > "/etc/apache2/sites-available/offgridenclave.conf"
 
 a2enmod proxy proxy_http proxy_wstunnel rewrite
 apache2ctl configtest
 
-a2ensite offgridneclave.conf
+a2ensite offgridenclave.conf
 systemctl reload apache2
 
-cat > /etc/systemd/system/offgridneclave.service <<EOF
+cat > /etc/systemd/system/offgridenclave.service <<EOF
 [Unit]
-Description=OFFGRID NECLAVE multiplayer game
+Description=OFFGRIDENCLAVE multiplayer game
 After=network.target
 
 [Service]
@@ -71,7 +71,7 @@ WantedBy=multi-user.target
 EOF
 
 systemctl daemon-reload
-systemctl enable --now offgridneclave.service
+systemctl enable --now offgridenclave.service
 
-echo "Installed OFFGRID NECLAVE on port $PORT behind Apache2 for $DOMAIN"
+echo "Installed OFFGRIDENCLAVE on port $PORT behind Apache2 for $DOMAIN"
 echo "Open http://$DOMAIN/"

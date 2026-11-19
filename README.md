@@ -27,5 +27,5 @@ Open `http://localhost:3000`.
 
 ## Apache reverse proxy
 
-The installer enables `proxy`, `proxy_http`, `proxy_wstunnel`, `rewrite`, and writes a virtual host from `apache-offgridneclave.conf.template`.
+The installer enables `proxy`, `proxy_http`, `proxy_wstunnel`, `rewrite`, and writes a virtual host from `apache-offgridenclave.conf.template`.
 
