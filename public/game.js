@@ -45,14 +45,14 @@ function drawScene(){
   ctx.restore();
 
   myPlayer=(world.players||[]).find(p=>p.id===myId)||{x:500,y:500,health:100,energy:100};
-  const fov=Math.PI/3,columns=420;
+  const fov=Math.PI/2,columns=420;
   const depths=new Float32Array(columns);
 
   for(let i=0;i<columns;i++){
     const rayAngle=angle-fov/2+(i/columns)*fov;
     let distance=castRay(myPlayer.x,myPlayer.y,rayAngle);if(!Number.isFinite(distance))distance=1000;
     distance*=Math.cos(rayAngle-angle);depths[i]=distance;
-    const wallHeight=Math.min(h*1.7,(h*340)/Math.max(distance,1));
+    const wallHeight=Math.min(h*1.25,(h*250)/Math.max(distance,1));
     const top=(h-wallHeight)/2;
     const shade=Math.max(.18,1-distance/900);
     const wallIndex=Math.floor((rayAngle-angle+fov/2)/(fov)*12)%3;
@@ -77,7 +77,7 @@ function drawScene(){
     const column=Math.max(0,Math.min(columns-1,Math.floor(screenX/ w*columns)));
     if(dist>depths[column])continue;
 
-    const size=Math.min(w,((h*220)/dist));
+    const size=Math.max(30,Math.min(w*.28,(h*120)/dist));
     const top=h/2-size*.65;
     ctx.save();ctx.translate(screenX,top);
     if(s.kind==='resource'){
