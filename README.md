@@ -46,6 +46,15 @@ sudo ./install.sh --update
 
 `git reset --hard` permanently discards local tracked changes. `git clean -fd` removes untracked files.
 
+Leaderboard scores are stored outside the Git repository at `/var/lib/offgridenclave/leaderboard.json`. This prevents leaderboard updates from blocking future installations or updates. To migrate existing scores manually:
+
+```bash
+sudo mkdir -p /var/lib/offgridenclave
+sudo cp ~/offgridenclave/data/leaderboard.json /var/lib/offgridenclave/leaderboard.json 2>/dev/null || true
+sudo chown -R jarvis:jarvis /var/lib/offgridenclave
+sudo systemctl restart offgridenclave.service
+```
+
 ## Apache reverse proxy
 
 The installer enables `proxy`, `proxy_http`, `proxy_wstunnel`, `rewrite`, and writes a virtual host from `apache-offgridenclave.conf.template`.

@@ -9,7 +9,8 @@ const server = http.createServer(app);
 const io = new Server(server, { transports: ['websocket', 'polling'] });
 const PORT = Number(process.env.PORT || process.argv[2] || 3000);
 const HOST = process.env.HOST || '0.0.0.0';
-const DATA_FILE = path.join(__dirname, 'data', 'leaderboard.json');
+const DATA_DIR = process.env.OFFGRIDENCLAVE_DATA_DIR || path.join(__dirname, '..', 'offgridenclave-data');
+const DATA_FILE = process.env.LEADERBOARD_FILE || path.join(DATA_DIR, 'leaderboard.json');
 
 app.use(express.static(path.join(__dirname, 'public')));
 

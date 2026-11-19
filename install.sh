@@ -100,6 +100,8 @@ node -e "const major=Number(process.versions.node.split('.')[0]); if (major < 18
 
 apt-get install -y apache2
 npm install
+mkdir -p /var/lib/offgridenclave
+chown -R "$SUDO_USER:$SUDO_USER" /var/lib/offgridenclave 2>/dev/null || true
 
 sed "s/__DOMAIN__/$DOMAIN/g; s/__PORT__/$PORT/g" apache-offgridenclave.conf.template > "/etc/apache2/sites-available/offgridenclave.conf"
 
@@ -120,6 +122,7 @@ WorkingDirectory=$(pwd)
 ExecStart=/usr/bin/env node server.js $PORT
 Restart=always
 Environment=NODE_ENV=production
+Environment=OFFGRIDENCLAVE_DATA_DIR=/var/lib/offgridenclave
 
 [Install]
 WantedBy=multi-user.target
