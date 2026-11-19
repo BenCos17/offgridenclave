@@ -1,4 +1,4 @@
-# OFFGRID NECLAVE
+# OFFGRIDENCLAVE
 
 A compact multiplayer browser survival game. Players gather resources, fight, survive a shrinking storm zone, and race for leaderboard glory.
 
